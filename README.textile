@@ -1,11 +1,14 @@
 This tool adds basic protection to server against DoS/DDoS through HTTP.
 
 Tool is designed to use:
+
 * Linux
 * tmpfs (for speedup)
 * sqlite3
 * ruby
+
 Required ruby gems:
+
 * activesupport
 * daemons
 * sqlite3-ruby
