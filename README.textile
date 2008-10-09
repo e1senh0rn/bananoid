@@ -1,0 +1,22 @@
+This tool adds basic protection to server against DoS/DDoS through HTTP.
+
+Tool is designed to use:
+* Linux
+* tmpfs (for speedup)
+* sqlite3
+* ruby
+Required ruby gems:
+* activesupport
+* daemons
+* sqlite3-ruby
+* file-tail
+
+Well, as it starts and tries to mount ./db with tmpfs (ability and size of tmpfs are setting up in config) to boost speed.
+And it is actually needed step, cause heavy working with sqlite3 increases disk activity a lot.
+
+That it "tails" logfile (looking for new records each 10 seconds) and adds records to sqlite3.
+
+During adding it increases counter for same requests in last 10 seconds. More than 10 same requests from same IP looks suspicious,
+so its going to be banned using external command.
+
+Any help and assistance on improving this stuff will be appreciated.

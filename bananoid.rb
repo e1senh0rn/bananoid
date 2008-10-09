@@ -9,7 +9,7 @@ require 'activesupport'
 require 'daemons'
 # I like pretty configuration files
 require 'yaml'
-require 'ostruct' 
+require 'ostruct'
 
 # Defines root dir
 BANANOID_ROOT = "#{File.dirname(Pathname.new(__FILE__).realpath)}" unless defined?(BANANOID_ROOT)
