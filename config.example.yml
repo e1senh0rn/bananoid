@@ -1,0 +1,42 @@
+# It's my config. For format reference go to http://yaml.org/spec/1.2/
+
+# Allowed values - yes, true, false, no. Everything else will be interpreted as false.
+debug: no
+
+# I should allow these
+my_ip:
+    - 127.0.0.1
+    - 91.192.46.2
+
+# Anyone I should pass. My_ip will be added to this list too
+whitelist:
+    - 213.227.198.4
+
+logs:
+    httpd: /var/log/nginx/access.log
+    my: log/bananoid.log
+
+
+database: 
+    file: db/bananoid.sqlite3
+    use_tmpfs: true
+    tmpfs_size: 64M
+
+# how many same requests (MAX_RATE) could be done from same IP during MAX_PERIOD (in seconds)
+detection:
+    max_rate: 10
+    max_period: 10
+
+periodic:
+    # how often should I purge DB? In minutes, plz.
+    purge: 1
+    # timeout for banned IP. In minutes.
+    bann: 10
+
+#command passed to shell.
+commands:
+    block: /sbin/iptables -A ufw-user-input -s <INTRUDER> -p tcp -m tcp --dport 80 -j DROP
+    unblock: /sbin/iptables -D ufw-user-input -s <INTRUDER> -p tcp -m tcp --dport 80 -j DROP
+    ##Dangerous, but should be more efficient on REALLY HUGE amount of addresses to ban
+    #block: /sbin/route add -host <INTRUDER> reject
+    #unblock: /sbin/route add - <INTRUDER> reject
