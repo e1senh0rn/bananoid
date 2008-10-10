@@ -6,11 +6,13 @@ debug: no
 # I should allow these
 my_ip:
     - 127.0.0.1
-    - 91.192.46.2
+    # Remember to add your external IP here.
+    # - 1.2.3.4
 
 # Anyone I should pass. My_ip will be added to this list too
 whitelist:
-    - 213.227.198.4
+    # Add yourself here to pass bananoid
+    # - 3.4.5.6
 
 logs:
     httpd: /var/log/nginx/access.log
@@ -29,14 +31,18 @@ detection:
 
 periodic:
     # how often should I purge DB? In minutes, plz.
-    purge: 1
+    purge: 5
     # timeout for banned IP. In minutes.
-    bann: 10
+    bann: 30
 
 #command passed to shell.
 commands:
-    block: /sbin/iptables -A ufw-user-input -s <INTRUDER> -p tcp -m tcp --dport 80 -j DROP
-    unblock: /sbin/iptables -D ufw-user-input -s <INTRUDER> -p tcp -m tcp --dport 80 -j DROP
-    ##Dangerous, but should be more efficient on REALLY HUGE amount of addresses to ban
+    ## This way is better than iptables.
+    block: /sbin/ip route add blackhole <INTRUDER>
+    unblock: /sbin/ip route del blackhole <INTRUDER>
+    ## With iptables
+    #block: /sbin/iptables -A ufw-user-input -s <INTRUDER> -p tcp -m tcp --dport 80 -j DROP
+    #unblock: /sbin/iptables -D ufw-user-input -s <INTRUDER> -p tcp -m tcp --dport 80 -j DROP
+    ## With routes reject
     #block: /sbin/route add -host <INTRUDER> reject
-    #unblock: /sbin/route add - <INTRUDER> reject
+    #unblock: /sbin/route del -host <INTRUDER> reject

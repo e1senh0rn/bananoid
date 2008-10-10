@@ -1,0 +1,2 @@
+* Get rid of activesupport.
+* Find out why it causes high CPU load.
