@@ -26,8 +26,8 @@ database:
 
 # how many same requests (MAX_RATE) could be done from same IP during MAX_PERIOD (in seconds)
 detection:
-    max_rate: 10
-    max_period: 10
+    max_rate: 40
+    max_period: 20
 
 periodic:
     # how often should I purge DB? In minutes, plz.
