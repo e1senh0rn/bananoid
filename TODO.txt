@@ -1,2 +1,3 @@
 * Get rid of activesupport.
 * Find out why it causes high CPU load.
+* Add memcache storage support

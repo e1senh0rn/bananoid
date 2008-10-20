@@ -1,4 +1,4 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 
 require 'rubygems'
 # I know it's too heavy, but it looks so sweat ^__^
@@ -34,6 +34,7 @@ KEYS = [:domain, :ip, :time, :status, :request, :body_size, :referer, :user_agen
 #################################################
 ############ HERE ARE THE CLASSES ###############
 #################################################
+require File.join(BANANOID_ROOT, 'lib/logformat')
 require File.join(BANANOID_ROOT, 'lib/logfile')
 require File.join(BANANOID_ROOT, 'lib/database')
 require File.join(BANANOID_ROOT, 'lib/blocker')
@@ -62,8 +63,7 @@ $logger.info "Running under #{BANANOID_ROOT}"
 $logger.debug "Opening #{$config.logs['httpd']}"
 
 httpd_log = LogFile.new($config.logs['httpd'], "r")
-
-$logger.debug "Opening database #{$config.database}"
+$logger.debug "Opening database #{$config.database['file']}"
 
 # Working with such speed on hdd eats a lot of resources.
 # So the good idea is to bring DB to tmpfs.
@@ -82,6 +82,8 @@ unblock_timer = Time.now
 
 $logger.debug "Attaching to log."
 begin
+  #set log format string
+  httpd_log.log_format_str = $config.log_format
   #let's start tailing app's log
   httpd_log.attach do |line|
     data = httpd_log.scan_str(line)
@@ -115,6 +117,7 @@ begin
     end
   
   end
-rescue
+rescue => detail
   $logger.error 'An exception caught. Dying...'
+  print detail.backtrace.join("\n")
 end
