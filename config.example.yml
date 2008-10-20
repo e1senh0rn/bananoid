@@ -36,6 +36,10 @@ periodic:
     bann: 30
 
 #command passed to shell.
+
+# format of log
+log_format: '%h %l %u %t "%r" "%s" %b "%{Referer}i" "%{User-agent}i" "%{X-forwarded-for}i"'
+
 commands:
     ## This way is better than iptables.
     block: /sbin/ip route add blackhole <INTRUDER>

@@ -22,4 +22,37 @@ That it "tails" logfile (looking for new records each 10 seconds) and adds recor
 During adding it increases counter for same requests in last 10 seconds. More than 10 same requests from same IP looks suspicious,
 so its going to be banned using external command.
 
+Example log formats:
+
+:common => '%h %l %u %t \"%r\" %>s %b'
+
+:common_with_virtual => '%v %h %l %u %t \"%r\" %>s %b'
+
+:combined => '%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\"'
+
+:combined_with_virtual => '%v %h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\"'
+
+:combined_with_cookies => '%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\" \"%{Cookies}i\"'
+
+*Legend:*
+
+'h' => :ip
+
+'l' => :auth
+
+'u' => :username
+
+'t' => :datetime
+
+'r' => :request
+
+'s' => :status
+
+'b' => :bytecount
+
+'v' => :domain
+
+'i' => :header_lines
+
+
 Any help and assistance on improving this stuff will be appreciated.
