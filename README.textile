@@ -24,20 +24,34 @@ so its going to be banned using external command.
 
 Example log formats:
 
-:common => '%h %l %u %t \"%r\" %>s %b',
-:common_with_virtual => '%v %h %l %u %t \"%r\" %>s %b',
-:combined => '%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\"',
-:combined_with_virtual => '%v %h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\"',
+:common => '%h %l %u %t \"%r\" %>s %b'
+
+:common_with_virtual => '%v %h %l %u %t \"%r\" %>s %b'
+
+:combined => '%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\"'
+
+:combined_with_virtual => '%v %h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\"'
+
 :combined_with_cookies => '%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\" \"%{Cookies}i\"'
 
+*Legend:*
+
 'h' => :ip
+
 'l' => :auth
+
 'u' => :username
+
 't' => :datetime
+
 'r' => :request
+
 's' => :status
+
 'b' => :bytecount
+
 'v' => :domain
+
 'i' => :header_lines
 
 
